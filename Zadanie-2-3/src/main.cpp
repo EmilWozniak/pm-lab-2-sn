@@ -1,22 +1,22 @@
 #include <Arduino.h>
 volatile int state = LOW;
-void myISR();
 
 int main() {
   init(); //Inicjalizacja biblioteki Arduino
-  pinMode(12, OUTPUT); //Konfiguracja portu PB4 (D12) jako wyjście
-  pinMode(13, OUTPUT); //Konfiguracja portu PB5 (D13) jako wyjście
-  attachInterrupt(0, myISR, CHANGE);
+  DDRB |= B00110000; //Konfiguracja portu PB4 i PB5 (D12 i D13) jako wyjście
+  PORTD |= (1 << PORTD2); //Włączenie portu PD2 dla INT0
+  EICRA |= (1 << ISC00); // Wykrywanie każdej zmiany stanu logicznego
+  EIMSK |= (1 << INT0); //Włączenie przerwania INT0
   sei(); //Globalne włączenie przerwań
   while (1) {
-    digitalWrite(13, HIGH);
+    PORTB |= (1 << PORTB5);
     delay(500);
-    digitalWrite(13, LOW);
+    PORTB &= !(1 << PORTB5);
     delay(500);
   }
 }
 
-void myISR() {
+ISR(INT0_vect) {
   state = !state;
   digitalWrite(12, state);
 }
