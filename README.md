@@ -13,4 +13,4 @@ Numer albumu: 7 2 5 5 8
 Grupa studencka: WEL18DE1S1
 
 # Pytania do zadań z instrukcji
-
+W jaki sposób można okreslić czas trwania opóźnienia zrealizowanego z użyciem pętli? - Opoźnienie z użyciem pętli można zrealizować za pomocą funkcji delay(). Należy jednak pamiętać, że ta funkcja zupełnie zatrzymuje działanie programu. Opóźnienie możemy również zrealizować za pomocą funkcji millis().
